@@ -1,6 +1,7 @@
 package com.example.demo.persistence.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table
@@ -12,13 +13,26 @@ public class User {
 
     private String firstName;
     private String lastName;
+
     private String email;
     private String password;
-    private boolean enabled;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+
+    private boolean enabled = true;
 
     public User() {
         super();
+    }
 
+    public User(String firstName, String lastName, String email, String password, Collection<Role> roles, boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.enabled = enabled;
     }
 
     public void setId(Long id) {
@@ -61,11 +75,19 @@ public class User {
         return email;
     }
 
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
     }
 }
