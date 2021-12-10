@@ -1,10 +1,12 @@
 package com.example.demo.web.dto;
 
+import com.example.demo.validation.PasswordMatches;
 import com.example.demo.validation.ValidEmail;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@PasswordMatches
 public class UserDto {
 
     @NotNull
