@@ -40,15 +40,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/login*").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .usernameParameter("email")
-                .defaultSuccessUrl("/")
-                .permitAll()
+                .loginPage("/login")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/homepage", true)
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .logout()
+                .logoutUrl("/perform_logout")
+                .deleteCookies("JSESSIONID");
     }
 
     //BEANS

@@ -51,6 +51,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
 
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+        Role userRole = roleRepository.findByName("ROLE_USER");
+
         User user = new User();
         user.setFirstName("Test");
         user.setLastName("Test");
