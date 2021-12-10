@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Log In</title>
-    <script type="text/javascript">
+    <script th:inline="javascript">
         function validate() {
             if (document.f.username.value == "" && document.f.password.value == "") {
                 alert("Username and password are required");
@@ -22,24 +24,38 @@
             }
         }
     </script>
+    <style type="text/css">
+    .wrapper{width:500px;margin-left:auto;margin-right:auto}
+    label{padding-left:0 !important}
+    </style>
 </head>
 <body>
-<h1>Login</h1>
-<form name='f' action="/perform_login" method='POST' onsubmit="return validate();">
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' /></td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
-        </tr>
-    </table>
-</form>
+<div class="container">
+    <div class="wrapper">
+        <div class="border rounded mt-5 p-4 bg-light">
+            <h1 class="text-center col-sm-12">Login</h1>
+            <form  name='f' action="/perform_login" method='POST' onsubmit="return validate();">
 
+                <div class="form-group mt-4">
+                    <label class="mr-3">No account?</label>
+                    <a class="link-primary" th:href="@{/registration}">Register</a>
+                </div>
+
+                <div class="form-group">
+                    <label class="">Email</label>
+                    <input class="form-control" type='text' name='username' placeholder="Enter Email">
+                </div>
+
+                <div class="form-group">
+                    <label class="">Password</label>
+                    <input class="form-control" type='password' name='password' placeholder="Password" />
+                </div>
+
+                <input  class="btn btn-primary col-sm-12 mt-4" name="submit" type="submit" value="Log In" />
+
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
