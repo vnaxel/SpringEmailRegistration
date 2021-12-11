@@ -10,19 +10,19 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Service
+@Transactional
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository repository;
-
-    public MyUserDetailsService() {
-        super();
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -30,7 +30,14 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user == null ) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(user.getRoles()));
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                user.isEnabled(),
+                true,
+                true,
+                true,
+                getAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
@@ -47,7 +54,6 @@ public class MyUserDetailsService implements UserDetailsService {
         for (final Privilege item : collection) {
             privileges.add(item.getName());
         }
-
         return privileges;
     }
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
@@ -15,7 +14,7 @@
     <div class="wrapper">
         <div class="border rounded mt-4 p-4 bg-light">
             <h1 class="text-center col-sm-12">Register</h1>
-            <form  name='f' action="/" method='POST' enctype="utf-8">
+            <form action="/registration" method='POST' name='f' th:object="${user}">
 
                 <div class="form-group mt-4">
                     <label class="mr-3">Already have an account?</label>
@@ -24,27 +23,27 @@
 
                 <div class="form-group">
                     <label class="">First name</label>
-                    <input class="form-control" type='text' name='username' placeholder="First name">
+                    <input class="form-control" th:field="*{firstName}" type='text' name='username' placeholder="First name">
                 </div>
 
                 <div class="form-group">
                     <label class="">Last name</label>
-                    <input class="form-control" type='text' name='username' placeholder="Last name">
+                    <input class="form-control" th:field="*{lastName}" type='text' name='username' placeholder="Last name">
                 </div>
 
                 <div class="form-group">
                     <label class="">Email</label>
-                    <input class="form-control" type='text' name='username' placeholder="Email">
+                    <input class="form-control" th:field="*{email}" type='text' name='username' placeholder="Email">
                 </div>
 
                 <div class="form-group">
                     <label class="">Password</label>
-                    <input class="form-control" type='password' name='password' placeholder="Password" />
+                    <input class="form-control" th:field="*{password}" type='password' name='password' placeholder="Password" />
                 </div>
 
                 <div class="form-group">
                     <label class="">Confirm password</label>
-                    <input class="form-control" type='password' name='password' placeholder="Password" />
+                    <input class="form-control" th:field="*{matchingPassword}" type='password' name='password' placeholder="Password" />
                 </div>
 
                 <input  class="btn btn-primary col-sm-12 mt-4" name="submit" type="submit" value="Sign In" />
