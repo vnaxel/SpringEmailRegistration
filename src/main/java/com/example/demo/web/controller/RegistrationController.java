@@ -39,7 +39,7 @@ public class RegistrationController {
             // TODO: email validation
         } catch (final UserAlreadyExistException ueaEx) {
             ModelAndView mav = new ModelAndView("registration", "user", userDto);
-            mav.addObject("message", "An account for that username/email already exists.");
+            mav.addObject("message", "An account for that email already exists.");
             return mav;
             // TODO: display error messages on templates
         }

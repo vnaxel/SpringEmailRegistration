@@ -9,11 +9,14 @@
     label{padding-left:0 !important}
     </style>
 </head>
-<<body>
+<body>
 <div class="container">
     <div class="wrapper">
-        <div class="border rounded mt-4 p-4 bg-light">
+        <div class="border rounded mt-5 p-4 bg-light">
             <h1 class="text-center col-sm-12">Register</h1>
+
+            <div th:if="${message != null}" class="alert alert-danger mt-4" th:utext="${message}">message</div>
+
             <form action="/registration" method='POST' name='f' th:object="${user}">
 
                 <div class="form-group mt-4">
