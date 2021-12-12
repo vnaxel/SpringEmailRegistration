@@ -29,8 +29,7 @@ public class UserService implements IUserService {
     @Override
     public User registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException {
         if (emailExists(userDto.getEmail())) {
-            throw new UserAlreadyExistException("There is an account with that email address: "
-                    + userDto.getEmail());
+            throw new UserAlreadyExistException("Email " + userDto.getEmail() + " is already used");
         }
 
         Role userRole = roleRepository.findByName("ROLE_USER");

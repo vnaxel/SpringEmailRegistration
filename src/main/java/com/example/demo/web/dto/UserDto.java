@@ -10,21 +10,21 @@ import javax.validation.constraints.NotNull;
 public class UserDto {
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "First name cannot be empty")
     private String firstName;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "First name cannot be empty")
     private String lastName;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "Password cannot be empty")
     private String password;
     private String matchingPassword;
 
-    @ValidEmail
+    @ValidEmail(message = "Invalid email format")
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "Email cannot be empty")
     private String email;
 
     public String getFirstName() {
