@@ -40,8 +40,8 @@
                     <a class="link-primary" th:href="@{/registration}">Register</a>
                 </div>
 
-                <span th:if="${param.error}" class="alert alert-danger error px-2 py-1">
-                    Invalid username and password.
+                <span th:if="${param.error}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}" class="alert alert-danger error px-2 py-1">
+
                 </span>
 
                 <div class="form-group mt-3">
