@@ -82,6 +82,16 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public VerificationToken generateNewVerificationTokenWithEmail(final String userEmail) {
+        User user = userRepository.findByEmail(userEmail);
+        VerificationToken vToken = tokenRepository.findByUser(user);
+        vToken.updateToken(UUID.randomUUID()
+                .toString());
+        vToken = tokenRepository.save(vToken);
+        return vToken;
+    }
+
+    @Override
     public VerificationToken getVerificationToken(String VerificationToken) {
         return tokenRepository.findByToken(VerificationToken);
     }

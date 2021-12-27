@@ -111,6 +111,32 @@ public class RegistrationController {
         return "login";
     }
 
+    @GetMapping("/resendRegistrationTokenWithEmail")
+    public String resendRegistrationTokenWithEmail(HttpServletRequest request, Model model, @RequestParam("email") String userEmail) {
+        try{
+            VerificationToken newToken = userService.generateNewVerificationTokenWithEmail(userEmail);
+            User user = userService.getUser(newToken.getToken());
+            String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+
+            SimpleMailMessage email = constructResendVerificationEmail(appUrl, newToken, user);
+            mailSender.send(email);
+
+            String message = "We have sent you an email with a new registration token";
+            model.addAttribute("message", message);
+
+            return "login";
+        } catch (NullPointerException ex) {
+            String err = "No such email in database";
+            model.addAttribute("err", err);
+            return "resendEmail";
+        }
+    }
+
+    @GetMapping("/resendEmail")
+    public String showResendEmailForm (){
+        return "resendEmail";
+    }
+
     private SimpleMailMessage constructResendVerificationEmail(String contextPath, VerificationToken newToken, User user) {
         String confirmationUrl = contextPath + "/registrationConfirm?token=" + newToken.getToken();
         String message = "To confirm your registration, please click on the below link.";

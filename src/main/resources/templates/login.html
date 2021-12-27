@@ -40,13 +40,20 @@
                     <a class="link-primary" th:href="@{/registration}">Register</a>
                 </div>
 
-                <div th:if="${message != null}" class="alert alert-info px-2 py-1" th:utext="${message}"></div>
+                <div th:if="${message != null}" >
+                    <span class="alert alert-info px-2 py-1" th:utext="${message}"></span>
+                </div>
 
-                <span th:if="${param.error}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}" class="alert alert-danger error px-2 py-1"></span>
+                <div th:if="${param.error}" th:with="errorMsg=${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+                    <span th:text="${errorMsg}" class="alert alert-danger error px-2 py-1 mr-3"></span>
+                    <span th:if="${errorMsg} == 'User is disabled'">
+                        <a class="link-primary" th:href="@{/resendEmail}">Resend an activation email</a>
+                    </span>
+                </div>
 
                 <div class="form-group mt-3">
                     <label class="">Email</label>
-                    <input class="form-control" type='text' name='username' placeholder="Enter Email">
+                    <input id="email" class="form-control" type='text' name='username' placeholder="Enter Email">
                 </div>
 
                 <div class="form-group">

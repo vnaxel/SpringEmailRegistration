@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Resend Verification Email</title>
+    <style type="text/css">
+    .wrapper{width:500px;margin-left:auto;margin-right:auto}
+    label{padding-left:0 !important}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="wrapper">
+        <div class="border rounded mt-5 p-4 bg-light">
+            <h1 class="">Resend Verification Email</h1>
+            <div class="form-group mt-4">
+              <label class="mr-3">Already have an activated account?</label>
+              <a class="link-primary" th:href="@{/login}">Log in</a>
+            </div>
+            <div class="mt-3">
+                <span class="alert alert-danger error px-2 py-1 mr-3" th:if="${err}" th:text="${err}"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label class="">Email</label>
+                <input id="email" class="form-control" type='text' name='username' placeholder="Enter Email">
+            </div>
+
+            <button class="btn btn-primary col-sm-12 mt-4" onclick="resendToken()">Resend email</button>
+
+            <script th:inline="javascript">
+                var serverContext = [[@{/}]];
+
+                function resendToken(){
+                    var email = document.getElementById("email").value
+                    window.location.href = serverContext + "resendRegistrationTokenWithEmail?email=" + email
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

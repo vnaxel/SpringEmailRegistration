@@ -18,4 +18,5 @@ public interface IUserService {
 
     VerificationToken generateNewVerificationToken(String token);
 
+    VerificationToken generateNewVerificationTokenWithEmail(String userEmail);
 }
