@@ -2,8 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.persistence.dao.RoleRepository;
 import com.example.demo.persistence.dao.UserRepository;
+import com.example.demo.persistence.dao.VerificationTokenRepository;
 import com.example.demo.persistence.model.Role;
 import com.example.demo.persistence.model.User;
+import com.example.demo.persistence.model.VerificationToken;
 import com.example.demo.web.dto.UserDto;
 import com.example.demo.web.error.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ public class UserService implements IUserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -46,5 +52,27 @@ public class UserService implements IUserService {
 
     private boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
+    }
+
+    @Override
+    public User getUser(String verificationToken) {
+        User user = tokenRepository.findByToken(verificationToken).getUser();
+        return user;
+    }
+
+    @Override
+    public void saveRegisteredUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void createVerificationToken(User user, String token) {
+        VerificationToken myToken = new VerificationToken(token, user);
+        tokenRepository.save(myToken);
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String VerificationToken) {
+        return tokenRepository.findByToken(VerificationToken);
     }
 }

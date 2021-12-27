@@ -20,10 +20,12 @@ public class User {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    private boolean enabled = true;
+    @Column(name = "enabled")
+    private boolean enabled;
 
     public User() {
         super();
+        this.enabled = false;
     }
 
     public User(String firstName, String lastName, String email, String password, Collection<Role> roles, boolean enabled) {

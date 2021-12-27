@@ -14,7 +14,7 @@ public class UserDto {
     private String firstName;
 
     @NotNull
-    @NotEmpty(message = "First name cannot be empty")
+    @NotEmpty(message = "Last name cannot be empty")
     private String lastName;
 
     @NotNull
