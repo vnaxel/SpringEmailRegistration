@@ -69,6 +69,11 @@ public class VerificationToken {
         this.expiryDate = expiryDate;
     }
 
+    public void updateToken(String token) {
+        this.token = token;
+        this.expiryDate = calculateExpiryDate(EXPIRATION);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -40,9 +40,9 @@
                     <a class="link-primary" th:href="@{/registration}">Register</a>
                 </div>
 
-                <span th:if="${param.error}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}" class="alert alert-danger error px-2 py-1">
+                <div th:if="${message != null}" class="alert alert-info px-2 py-1" th:utext="${message}"></div>
 
-                </span>
+                <span th:if="${param.error}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}" class="alert alert-danger error px-2 py-1"></span>
 
                 <div class="form-group mt-3">
                     <label class="">Email</label>

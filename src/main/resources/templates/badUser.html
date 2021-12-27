@@ -16,7 +16,20 @@
             <h1 class="">Something went wrong</h1>
             <span th:text="${err}"></span>
         </div>
-        <a th:href="@{/registration}" class="btn btn-primary col-sm-12 text-white mt-2">Register</a>
+        <div th:if="${expired}">
+
+            <button class="btn btn-primary col-sm-12 mt-4" onclick="resendToken()">Resend email</button>
+
+            <script th:inline="javascript">
+                var serverContext = [[@{/}]];
+
+                function resendToken(){
+                    var token = [[${token}]];
+                    window.location.href = serverContext + "resendRegistrationToken?token=" + token
+                }
+            </script>
+
+        </div>
     </div>
 </div>
 

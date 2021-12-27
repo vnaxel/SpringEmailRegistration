@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -69,6 +70,15 @@ public class UserService implements IUserService {
     public void createVerificationToken(User user, String token) {
         VerificationToken myToken = new VerificationToken(token, user);
         tokenRepository.save(myToken);
+    }
+
+    @Override
+    public VerificationToken generateNewVerificationToken(final String existingVerificationToken) {
+        VerificationToken vToken = tokenRepository.findByToken(existingVerificationToken);
+        vToken.updateToken(UUID.randomUUID()
+                .toString());
+        vToken = tokenRepository.save(vToken);
+        return vToken;
     }
 
     @Override
